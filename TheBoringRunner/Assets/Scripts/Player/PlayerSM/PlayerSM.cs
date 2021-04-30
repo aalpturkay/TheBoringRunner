@@ -10,20 +10,7 @@ namespace Player.PlayerSM
         public PlayerIdleState IdleState { get; private set; }
         public PlayerRunState RunState { get; private set; }
 
-        [SerializeField] private Animator _playerAnimator;
-        [SerializeField] private Transform _playerTransform;
-
-        public Animator PlayerAnimator
-        {
-            get => _playerAnimator;
-            set => _playerAnimator = value;
-        }
-
-        public Transform PlayerTransform
-        {
-            get => _playerTransform;
-            set => _playerTransform = value;
-        }
+        
 
         private void Awake()
         {

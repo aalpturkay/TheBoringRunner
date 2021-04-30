@@ -15,17 +15,17 @@ namespace Player.PlayerSM.PlayerStates
         public void Enter()
         {
             Debug.Log("Changed State - Run");
-            _playerSM.PlayerTransform.rotation = new Quaternion(0f, 0f, 0f, 0f);
-            _playerSM.PlayerAnimator.SetBool("isRunning", true);
+            PlayerController.Instance.PlayerTransform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+            PlayerController.Instance.PlayerAnimator.SetBool("isRunning", true);
         }
 
         public void Tick()
         {
+            MovePlayer();
         }
 
         public void FixedTick()
         {
-            MovePlayer();
         }
 
         public void Exit()
@@ -34,10 +34,10 @@ namespace Player.PlayerSM.PlayerStates
 
         private void MovePlayer()
         {
-            float speed = 5f;
-            var playerPos = _playerSM.PlayerTransform.position;
+            float speed = PlayerController.Instance.PlayerSpeed;
+            var playerPos = PlayerController.Instance.PlayerTransform.position;
             playerPos.z = playerPos.z + speed * Time.fixedDeltaTime;
-            _playerSM.PlayerTransform.position = playerPos;
+            PlayerController.Instance.PlayerTransform.position = playerPos;
         }
     }
 }

@@ -14,6 +14,8 @@ namespace Player.PlayerSM.PlayerStates
 
         public void Enter()
         {
+            _playerSM.ReloadLevelBut.gameObject.SetActive(true);
+            _playerSM.ReloadLevelBut.onClick.AddListener(ReloadLevel);
             _playerSM.PlayerHealthBar.gameObject.SetActive(false);
             _playerSM.BossHealthBar.gameObject.SetActive(false);
             _playerSM.TapBar.gameObject.SetActive(false);
@@ -22,12 +24,13 @@ namespace Player.PlayerSM.PlayerStates
             _playerSM.PlayerController.PlayerAnimator.SetTrigger("defeated");
         }
 
+        void ReloadLevel()
+        {
+            LevelManager.Instance.ReloadLevel();
+        }
+
         public void Tick()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                LevelManager.Instance.ReloadLevel();
-            }
         }
 
         public void FixedTick()

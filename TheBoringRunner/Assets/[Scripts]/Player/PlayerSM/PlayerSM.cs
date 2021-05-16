@@ -4,6 +4,7 @@ using DG.Tweening;
 using Player.PlayerSM.PlayerStates;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Player.PlayerSM
 {
@@ -11,11 +12,14 @@ namespace Player.PlayerSM
     {
         [SerializeField] private Transform bossTransform;
         [SerializeField] private ParticleSystem bossPunchParticle;
+        [SerializeField] private ParticleSystem confettiParticle;
         [SerializeField] private Animator cinemachineAnimator;
         [SerializeField] private HealthBar playerHealthBar;
+        [SerializeField] private int playerDamage;
+
 
         [SerializeField] private PlayerController _playerController;
-        
+
         [SerializeField] private HealthBar bossHealthBar;
         [SerializeField] private HealthBar tapBar;
         [SerializeField] private Animator bossAnimator;
@@ -23,6 +27,8 @@ namespace Player.PlayerSM
         [SerializeField] private TextMeshProUGUI fightText;
         [SerializeField] private TextMeshProUGUI winText;
         [SerializeField] private TextMeshProUGUI loseText;
+        [SerializeField] private Button nextLevelBut;
+        [SerializeField] private Button reloadLevelBut;
         public PlayerIdleState IdleState { get; private set; }
         public PlayerRunState RunState { get; private set; }
         public PlayerFightState FightState { get; private set; }
@@ -30,6 +36,9 @@ namespace Player.PlayerSM
 
         public PlayerLoseState LoseState { get; private set; }
 
+        public Button NextLevelBut => nextLevelBut;
+
+        public Button ReloadLevelBut => reloadLevelBut;
         public Transform BossTransform => bossTransform;
 
         public Animator BossAnimator => bossAnimator;
@@ -39,7 +48,7 @@ namespace Player.PlayerSM
         public HealthBar PlayerHealthBar => playerHealthBar;
 
         public PlayerController PlayerController => _playerController;
-        
+
         public HealthBar BossHealthBar => bossHealthBar;
 
         public HealthBar TapBar => tapBar;
@@ -53,6 +62,8 @@ namespace Player.PlayerSM
         public TextMeshProUGUI LoseText => loseText;
 
         public ParticleSystem BossPunchParticle => bossPunchParticle;
+
+        public ParticleSystem ConfettiParticle => confettiParticle;
 
         private void Awake()
         {
@@ -70,17 +81,18 @@ namespace Player.PlayerSM
 
         public void PlayPunchParticle()
         {
+            var playerDamageFactor = PlayerController.CollectedManCount * 0.02;
             bossPunchParticle.Play();
             bossAnimator.SetTrigger("hit");
-            DecreaseBossHealth(10);
+            tapBar.SetHealth(tapBar.GetHealth - 25);
+            DecreaseBossHealth((int) (playerDamage * playerDamageFactor));
+            
         }
-        
+
         private void DecreaseBossHealth(int damage)
         {
             var currentHealth = bossHealthBar.GetHealth;
             bossHealthBar.SetHealth(currentHealth - damage);
         }
-
-        
     }
 }

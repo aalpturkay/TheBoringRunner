@@ -20,7 +20,7 @@ namespace Player.PlayerSM.PlayerStates
 
         public void Tick()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 _playerSM.StartText.gameObject.SetActive(false);
                 _playerSM.ChangeState(_playerSM.RunState);

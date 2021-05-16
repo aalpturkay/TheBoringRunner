@@ -42,7 +42,7 @@ namespace Player.PlayerSM.PlayerStates
 
         private void MovePlayer()
         {
-            _playerSM.PlayerController.MovePlayer();
+            _playerSM.PlayerController.SwervePlayer();
         }
     }
 }

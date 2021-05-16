@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     private Level _loadedLevel;
 
     public Level CurrentLevel => _currentLevel;
+    public int CurrentLevelVal => levels.IndexOf(_currentLevel) + 1;
 
     #region Singleton
 

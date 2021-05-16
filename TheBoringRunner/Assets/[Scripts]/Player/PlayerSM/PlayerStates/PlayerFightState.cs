@@ -28,6 +28,7 @@ namespace Player.PlayerSM.PlayerStates
             _playerSM.StartCoroutine(ActivateFightTextIE());
             PlayerPunch(punchDelay: _playerPunchDelay);
             BossPunch(punchDelay: _bossPunchDelay);
+            DeactiveManCounterUI();
         }
 
         public void Tick()
@@ -49,6 +50,12 @@ namespace Player.PlayerSM.PlayerStates
         public void Exit()
         {
             _playerSM.StopAllCoroutines();
+        }
+
+        private void DeactiveManCounterUI()
+        {
+            _playerSM.PlayerController.ManCountImage.gameObject.SetActive(false);
+            _playerSM.PlayerController.ManCountText.gameObject.SetActive(false);
         }
 
         private void MovePlayerToBattleStage()
